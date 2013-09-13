@@ -3,7 +3,6 @@ package com.concurrency.lock;
 import java.util.Queue;
 
 import com.concurrency.factory.ObjectMother;
-import com.concurrency.task.RunnableOne;
 import com.concurrency.task.RunnableOneSynchronized;
 
 public class IntrinsicLock {

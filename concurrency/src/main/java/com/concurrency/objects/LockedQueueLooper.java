@@ -1,18 +1,23 @@
 package com.concurrency.objects;
 
 import java.util.Queue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class QueueLooper {
-	
+public class LockedQueueLooper extends QueueLooper{
+
 	Queue<Integer> queue;
-	
-	public QueueLooper(Queue<Integer> queue)
-	{
-	  this.queue=queue;	
+	Lock lock = new ReentrantLock();
+
+	public LockedQueueLooper(Queue<Integer> queue) {
+		super(queue);
+		this.queue = queue;
 	}
-	
+
+	@Override
 	public Boolean loop() {
 
+		lock.lock();
 		while (!queue.isEmpty()) {
 			Integer integer = queue.poll();
 			System.out.println(Thread.currentThread().getName()
@@ -24,7 +29,8 @@ public class QueueLooper {
 				System.out.println("Interrrupted");
 			}
 		}
-	  return true;
+		lock.unlock();
+		return true;
 	}
 
 }
